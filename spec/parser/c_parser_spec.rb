@@ -26,6 +26,34 @@ describe YARD::Parser::C::CParser do
       end
     end
 
+    describe 'Hash class' do
+      describe "1.9.3" do
+        before(:all) do
+          file = File.join(File.dirname(__FILE__), 'examples', 'hash193.c.txt')
+          parse(File.read(file))
+        end
+
+        it "should parse method" do
+          obj = YARD::Registry.at('Hash#[]')
+          obj.should_not be_nil
+          obj.docstring.should_not be_blank
+        end
+      end
+
+      describe "2.0.0" do
+        before(:all) do
+          file = File.join(File.dirname(__FILE__), 'examples', 'hash200.c.txt')
+          parse(File.read(file))
+        end
+
+        it "should parse method" do
+          obj = YARD::Registry.at('Hash#[]')
+          obj.should_not be_nil
+          obj.docstring.should_not be_blank
+        end
+      end
+    end
+
     describe 'Source located in extra files' do
       before(:all) do
         @multifile = File.join(File.dirname(__FILE__), 'examples', 'multifile.c.txt')
